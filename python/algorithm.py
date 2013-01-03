@@ -28,12 +28,6 @@ def makeArray(column, row, initValue=None):
 		
 	return marr
 
-def getmaxsize():
-	return sys.maxsize
-
-def getminsize():
-	return -sys.maxsize-1
-
 class KiwiJuiceEasy():
 	'''
 	P.53 シミュレーション
@@ -508,7 +502,7 @@ class ColorfulBoxesAndBalls():
 	P.230 カラフルボックス＆ボール
 	'''
 	def getMaximum(self, numRed, numBlue, onlyRed, onlyBlue, bothColors):
-		ans = getminsize()
+		ans = -sys.maxsize-1
 		comsize = min(numRed, numBlue)+1
 		
 		for i in range(comsize):

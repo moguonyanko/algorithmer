@@ -260,7 +260,7 @@ class AlgorithmerTrainingTest(unittest.TestCase):
 		hm = al.HamiltonPath(roads)
 		res = hm.countPaths()
 		self.assertEqual(24, res)		
-		
+	
 if __name__ == '__main__':
 	print(__file__)
 	unittest.main()
