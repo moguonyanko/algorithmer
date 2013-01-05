@@ -1,57 +1,48 @@
 #include <stdio.h>
 #include <assert.h>
+#import <Foundation/Foundation.h>>
 
-int len(int array[])
+NSArray thePouring(NSArray *capacities, NSArray *bottles, 
+		NSArray *fromId, NSArray *toId)
 {
-	return sizeof(array) / sizeof(array[0]);
-}
-
-typedef struct {
-	int *bottles;
-} Bottle;
-
-Bottle thePouring(int capacities[], int bottles[], 
-		int fromId[], int toId[])
-{
-	int size = len(fromId);
+	int size = [fromId count];
 	for(int i = 0; i < size; i++){
-		int f = fromId[i];
-		int t = toId[i];
-		int space = capacities[t] - bottles[t];
+		int f = [fromId objectAtIndex:i];
+		int t = [toId objectAtIndex:i];
+		int space = [capacities objectAtIndex:t] - [bottles objectAtIndex:t];
 
-		if(space >= bottles[f]){
-			int vol = bottles[f];
-			bottles[t] += vol;
-			bottles[f] = 0;
+		if(space >= [bottles objectAtIndex:f]){
+			int vol = [bottles objectAtIndex:f];
+			[bottles objectAtIndex:t] += vol;
+			[bottles objectAtIndex:f] = 0;
 		}else{
 			int vol = space;
-			bottles[t] += vol;
-			bottles[f] -= vol;
+			[bottles objectAtIndex:t] += vol;
+			[bottles objectAtIndex:f] -= vol;
 		}
 	}
 
-	Bottle b;
-	b.bottles = bottles;
-
-	return b;
+	return bottles;
 }
 
 int main(int argc, const char * argv[])
 {
-	int capacities[] = {30, 20, 10};
-	int bottles[] = {10, 5, 5};
-	int fromId[] = {0, 1, 2};
-	int toId[] = {1, 2, 0};
-	int check[] = {10, 10, 0};
-	
-	Bottle b = thePouring(capacities, bottles, fromId, toId);
+	@autoreleasepool{
+		NSArray *capacities = [NSArray arrayWithObjects:30, 20, 10];
+		NSArray *bottles = [NSArray arrayWithObjects:10, 5, 5];
+		NSArray *frimId = [NSArray arrayWithObjects:0, 1, 2];
+		NSArray *toId = [NSArray arrayWithObjects:1, 2, 0];
+		NSArray *check = [NSArray arrayWithObjects:10, 10, 0];
 
-	for(int i = 0, limit = len(bottles); i < limit; i++){
-		printf("%d\n", b.bottles[i]);
-		assert(b.bottles[i] == check[i]);
+		NSArray *result = thePouring(capacities, bottles, fromId, toId);
+
+		for(int i = 0, limit = [result count]; i < limit; i++){
+			printf("%d\n", [result objectAtIndex:i]);
+			assert([result objectAtIndex:i] == [check objectAtIndex:i]);
+		}
+
+		printf("OK\n");
 	}
-
-	printf("OK\n");
 
 	return 0;
 }
