@@ -1,6 +1,7 @@
 /**
  * Unittest utility functions.
- * This is tested on SpiderMonkey 1.8.0.
+ * This library is tested :
+ *		SpiderMonkey 1.8.0
  **/
 
 if(!this.assert){
@@ -26,7 +27,7 @@ var unittest = {
 			
 			print("OK");
 		}catch(e){
-			print(e.message);
+			print(e);
 			print("ANSWER:" + ans);
 			print("RESULT:" + res);
 		}
