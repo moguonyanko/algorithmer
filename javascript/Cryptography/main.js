@@ -47,7 +47,6 @@ load("../unittest.js");
 	
 		ut.assertEqual(answer, result);
 	};
-
 }(unittest));
 
 

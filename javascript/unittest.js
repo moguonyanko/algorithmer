@@ -13,9 +13,11 @@ if(!this.assert){
 }
 
 var unittest = {
+	suites : {},
 	assertEqual : function(ans, res){
 		try{
-			if(ans.length != null && res.length != null){/* TODO:Not enough array checking. */
+			/* TODO:Not enough as for checking "array". */
+			if(ans.length != null && res.length != null){
 				for(var i = 0, len = res.length; i<len; i++){
 					assert(res[i] === ans[i]);
 				}
@@ -28,6 +30,14 @@ var unittest = {
 			print(e);
 			print("ANSWER:" + ans);
 			print("RESULT:" + res);
+		}
+	},
+	putSuites : function(key, suite){
+		this.suites[key] = suite;
+	},
+	assertAll : function(){
+		for(var st in this.suites.length){
+			st();
 		}
 	}
 };
